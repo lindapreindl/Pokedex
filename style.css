@@ -10,6 +10,10 @@ h1, h2{
     margin: 0;
 }
 
+p{
+    margin: 0;
+}
+
 header{
     padding: 24px;
     background-color: black;
@@ -64,7 +68,6 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 #bigCard{
@@ -99,6 +102,17 @@ header{
     gap: 10vw;
 }
 
+.closeX{
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 50px;
+    -webkit-text-stroke: 4px black;
+    cursor: pointer;
+}
+
 .arrow{
     font-size: 50px;
     cursor: pointer;
@@ -114,6 +128,7 @@ header{
     justify-content: space-around;
     padding: 8px;
     color: black;
+    cursor: pointer;
 }
 
 .menu h3:hover{

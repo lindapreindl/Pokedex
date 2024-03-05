@@ -33,6 +33,7 @@ async function openPokemon(i) {
     document.getElementById('bigCard').innerHTML = /*html*/`
         <div>
             <div class="upperCard">
+                <p onclick="closeBigCard()" class="closeX">X</p>
                 <h2>${pokemon['name']}</h2>
                 <p>#00${pokemon['id']}</p>
                 <div class="changeCard">
