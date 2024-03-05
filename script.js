@@ -45,7 +45,7 @@ async function openPokemon(i) {
                 <div class="menu">
                     <h3 onclick="openInfo()" id="menu1" class="menu-open">Info</h3>
                     <h3 onclick="openStats()" id="menu2">Stats</h3>
-                    <h3 onclick="openMoves(${pokemon})" id="menu3">Moves</h3>
+                    <h3 onclick="openMoves(${i})" id="menu3">Moves</h3>
                 </div>
                 <div id="info">
                     <p>Type: ${pokemon['types']['0']['type']['name']}</p>
@@ -106,21 +106,25 @@ function openStats() {
 }
 
 
-function openMoves(pokemon) {
+function openMoves(i) {
     document.getElementById('menu3').classList.add('menu-open');
     document.getElementById('menu1').classList.remove('menu-open');
     document.getElementById('menu2').classList.remove('menu-open');
     document.getElementById('moves').classList.remove('d-none');
     document.getElementById('stats').classList.add('d-none');
     document.getElementById('info').classList.add('d-none');
-    loadMoves(pokemon);
+    loadMoves(i);
 }
 
 
-function loadMoves(pokemon){
+async function loadMoves(i){
     let moves = document.getElementById('moves');
-    for (let i = 0; i < 100; i++) {
-        let move = pokemon['moves'][i]['move']['name'];
-        console.log(move);
+    let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+    let response = await fetch(url);
+    let pokemon = await response.json();
+    
+    for (let j = 0; j < pokemon['moves'].length; j++) {
+        let move = pokemon['moves'][j]['move']['name'];
+        moves.innerHTML += move + ', ';
     }
 }
