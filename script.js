@@ -32,7 +32,7 @@ async function openPokemon(i) {
     document.getElementById('openCard').classList.remove('d-none');
     document.getElementById('bigCard').innerHTML = /*html*/`
         <div>
-            <div class="upperCard">
+            <div class="upperCard" id="upperCard${i}">
                 <p onclick="closeBigCard()" class="closeX">X</p>
                 <h2>${pokemon['name']}</h2>
                 <p>#00${pokemon['id']}</p>
@@ -63,6 +63,7 @@ async function openPokemon(i) {
             </div>
         </div>
     `
+    changeColor(i, pokemon);
 }
 
 
