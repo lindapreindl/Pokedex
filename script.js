@@ -1,5 +1,8 @@
+let start = 1;
+let end = 21;
+
 async function init() {
-    for (let i = 1; i < 20; i++) {
+    for (let i = start; i < end; i++) {
 
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -129,4 +132,11 @@ async function loadMoves(i){
         let move = pokemon['moves'][j]['move']['name'];
         moves.innerHTML += move + ', ';
     }
+}
+
+
+function loadMore(){
+    start = start + 20;
+    end = end + 20;
+    init();
 }
