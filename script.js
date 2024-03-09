@@ -23,7 +23,7 @@ function render(pokemon, i) {
             <p class="type" id="type${i}">${pokemon['types']['0']['type']['name']}</p>
         </div>
     `
-    changeColor(i, pokemon);
+    changeColorSmall(i, pokemon);
 }
 
 
@@ -59,14 +59,17 @@ async function openPokemon(i) {
                     <p>Weight: ${pokemon['weight']}</p>
                 </div>
                 <div id="stats" class="d-none">
-                    stats
+                    <div>
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
                 <div id="moves" class="d-none">
                 </div>
             </div>
         </div>
     `
-    changeColor(i, pokemon);
+    changeColorBig(i, pokemon);
+    renderChart(i);
 }
 
 
@@ -122,12 +125,12 @@ function openMoves(i) {
 }
 
 
-async function loadMoves(i){
+async function loadMoves(i) {
     let moves = document.getElementById('moves');
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
     let pokemon = await response.json();
-    
+
     for (let j = 0; j < pokemon['moves'].length; j++) {
         let move = pokemon['moves'][j]['move']['name'];
         moves.innerHTML += move + ', ';
@@ -135,7 +138,7 @@ async function loadMoves(i){
 }
 
 
-function loadMore(){
+function loadMore() {
     start = start + 20;
     end = end + 20;
     init();
