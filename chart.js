@@ -1,8 +1,7 @@
-let statnames = [];
-let statnumbers = [];
 
-function renderChart(i) {
-    fillStats(i);
+
+function renderChart(i, statnames, statnumbers) {
+    fillStats(i, statnames, statnumbers);
 
     const ctx = document.getElementById('myChart');
 
@@ -11,9 +10,10 @@ function renderChart(i) {
         data: {
             labels: statnames,
             datasets: [{
-                label: 'stats',
+                label: 'value',
                 data: statnumbers,
-                borderWidth: 1
+                borderWidth: 1,
+                backgroundColor: ['#E2B4D0', '#F7CAB5', '#F5EF99', '#C2DBBE', '#A2D4DF', '#90A3EF']
             }]
         },
         options: {
@@ -24,10 +24,11 @@ function renderChart(i) {
             }
         }
     });
+
 }
 
 
-async function fillStats(i) {
+async function fillStats(i, statnames, statnumbers) {
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
     let pokemon = await response.json();

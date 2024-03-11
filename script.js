@@ -52,11 +52,11 @@ async function openPokemon(i) {
                     <h3 onclick="openMoves(${i})" id="menu3">Moves</h3>
                 </div>
                 <div id="info">
-                    <p>Type: ${pokemon['types']['0']['type']['name']}</p>
-                    <p>Base Experience: ${pokemon['base_experience']}</p>
-                    <p>Abilities: ${pokemon['abilities']['0']['ability']['name']}, ${pokemon['abilities']['1']['ability']['name']}</p>
-                    <p>Height: ${pokemon['height']}</p>
-                    <p>Weight: ${pokemon['weight']}</p>
+                    <p><b>Type:</b> ${pokemon['types']['0']['type']['name']}</p>
+                    <p><b>Base Experience:</b> ${pokemon['base_experience']}</p>
+                    <p><b>Abilities:</b> ${pokemon['abilities']['0']['ability']['name']}, ${pokemon['abilities']['1']['ability']['name']}</p>
+                    <p><b>Height:</b> ${pokemon['height']}</p>
+                    <p><b>Weight:</b> ${pokemon['weight']}</p>
                 </div>
                 <div id="stats" class="d-none">
                     <div>
@@ -68,8 +68,10 @@ async function openPokemon(i) {
             </div>
         </div>
     `
+    let statnames = [];
+    let statnumbers = [];
     changeColorBig(i, pokemon);
-    renderChart(i);
+    renderChart(i, statnames, statnumbers);
 }
 
 
