@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/png" href="./img/pokemon-1536847_640.png">
     <script src="./script.js"></script>
     <script src="./color.js"></script>
     <script src="./chart.js"></script>
@@ -18,12 +19,12 @@
     <div id="content"></div>
 
     <div id="openCard" class="d-none">
-        <div class="background">
-            <div id="bigCard"></div>
+        <div onclick="closeBigCard()" class="background">
+            <div onload="stopClose()" id="bigCard"></div>
         </div>
     </div>
 
-    <button onclick="loadMore()">load more</button>
+    <button onclick="loadMore()">load more <img src="./img/pokemon-1536847_640.png" alt=""></button>
 
 </body>
 

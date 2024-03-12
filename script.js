@@ -20,10 +20,11 @@ function render(pokemon, i) {
             <h2>${pokemon['name']}</h2>
             <p>#00${pokemon['id']}</p>
             <img src="${pokemon['sprites']['other']['dream_world']['front_default']}" alt="">
-            <p class="type" id="type${i}">${pokemon['types']['0']['type']['name']}</p>
+            <div class="types" id="type${i}"></div>
         </div>
     `
     changeColorSmall(i, pokemon);
+    insertTypes(pokemon, i);
 }
 
 
@@ -36,7 +37,6 @@ async function openPokemon(i) {
     document.getElementById('bigCard').innerHTML = /*html*/`
         <div>
             <div class="upperCard" id="upperCard${i}">
-                <p onclick="closeBigCard()" class="closeX">X</p>
                 <h2>${pokemon['name']}</h2>
                 <p>#00${pokemon['id']}</p>
                 <div class="changeCard">
@@ -72,11 +72,29 @@ async function openPokemon(i) {
     let statnumbers = [];
     changeColorBig(i, pokemon);
     renderChart(i, statnames, statnumbers);
+
+    document.getElementById('bigCard').addEventListener("click", function(event){
+        event.preventDefault()
+      });
+}
+
+
+function insertTypes(pokemon, i){
+    let typecontent = document.getElementById(`type${i}`);
+    for (let j = 0; j < pokemon['types'].length; j++) {
+        typecontent.innerHTML += /*html*/`
+            <p class="type">${pokemon['types'][j]['type']['name']}</p>
+        `;
+    }
 }
 
 
 function closeBigCard() {
     document.getElementById('openCard').classList.add('d-none');
+}
+
+function stopClose(event) {
+    event.preventDefault();
 }
 
 
