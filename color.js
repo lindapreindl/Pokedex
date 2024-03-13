@@ -87,7 +87,6 @@ async function changeColorSmall(i, pokemon) {
     let type = pokemon['types']['0']['type']['name'];
     let card = document.getElementById(`card${i}`);
 
-    console.log(type);
     switch (type) {
         case 'grass':
             card.style = 'background-color: #94D996';

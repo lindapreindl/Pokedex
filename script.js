@@ -3,10 +3,11 @@ let end = 21;
 let pokemons = [];
 
 
-function init(){
+function init() {
     initRender();
     initSearch();
 }
+
 
 async function initRender() {
     for (let i = start; i < end; i++) {
@@ -18,6 +19,7 @@ async function initRender() {
     }
 
 }
+
 
 async function initSearch() {
     for (let i = start; i < end; i++) {
@@ -32,7 +34,6 @@ async function initSearch() {
 
 
 function render(pokemon, i) {
-    console.log(pokemon);
     document.getElementById('content').innerHTML += /*html*/`
         <div onclick="openPokemon(${i})" class="card" id="card${i}">
             <h2>${pokemon['name']}</h2>
@@ -50,7 +51,17 @@ async function openPokemon(i) {
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
     let pokemon = await response.json();
-    console.log(pokemon['name']);
+
+    insertOpenPokemonHTML(pokemon, i);
+
+    let statnames = [];
+    let statnumbers = [];
+    changeColorBig(i, pokemon);
+    renderChart(i, statnames, statnumbers);
+}
+
+
+function insertOpenPokemonHTML(pokemon, i) {
     document.getElementById('openCard').classList.remove('d-none');
     document.getElementById('bigCard').innerHTML = /*html*/`
         <div>
@@ -86,18 +97,10 @@ async function openPokemon(i) {
             </div>
         </div>
     `
-    let statnames = [];
-    let statnumbers = [];
-    changeColorBig(i, pokemon);
-    renderChart(i, statnames, statnumbers);
-
-    document.getElementById('bigCard').addEventListener("click", function(event){
-        event.preventDefault()
-      });
 }
 
 
-function insertTypes(pokemon, i){
+function insertTypes(pokemon, i) {
     let typecontent = document.getElementById(`type${i}`);
     for (let j = 0; j < pokemon['types'].length; j++) {
         typecontent.innerHTML += /*html*/`
@@ -110,6 +113,7 @@ function insertTypes(pokemon, i){
 function closeBigCard() {
     document.getElementById('openCard').classList.add('d-none');
 }
+
 
 function stopClose(event) {
     event.stopPropagation();
@@ -183,20 +187,18 @@ function loadMore() {
 }
 
 
-function filterNames(){
+function filterNames() {
     let search = document.getElementById('search').value;
     search = search.toLowerCase();
-    console.log(search);
 
     document.getElementById('content').innerHTML = '';
 
     for (let index = 0; index < pokemons.length; index++) {
         const name = pokemons[index]['name'];
         if (name.toLowerCase().includes(search)) {
-            console.log(name);
             render(pokemons[index], index)
         }
-        
+
     }
 }
 
