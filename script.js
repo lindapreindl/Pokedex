@@ -20,7 +20,7 @@ async function initRender() {
 }
 
 async function initSearch() {
-    for (let i = 1; i < 900; i++) {
+    for (let i = start; i < end; i++) {
 
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -112,7 +112,7 @@ function closeBigCard() {
 }
 
 function stopClose(event) {
-    event.preventDefault();
+    event.stopPropagation();
 }
 
 

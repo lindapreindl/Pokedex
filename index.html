@@ -14,18 +14,21 @@
 </head>
 
 <body onload="init()">
-    <header><h1>Pokedex</h1> <input onkeydown="filterNames()" id="search" type="text" placeholder="Search Pokemon"></header>
+
+    <header>
+        <h1>Pokedex</h1> <input onkeydown="filterNames()" id="search" type="text" placeholder="Search Pokemon">
+    </header>
 
     <div id="content"></div>
 
-    <div id="openCard" class="d-none">
+    <div onclick="closeBigCard()" id="openCard" class="d-none">
         <div class="background">
-            <div onload="stopClose()" id="bigCard"></div>
+            <div onclick="stopClose(event)" id="bigCard"></div>
         </div>
     </div>
-
-    <button onclick="loadMore()">load more <img src="./img/pokemon-1536847_640.png" alt=""></button>
-
+    <div class="bottom">
+        <button onclick="loadMore()">load more <img src="./img/pokemon-1536847_640.png" alt=""></button>
+    </div>
 </body>
 
 </html>

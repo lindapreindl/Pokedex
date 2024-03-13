@@ -5,7 +5,6 @@ body{
 
 h1, h2{
     font-weight: bold;
-    text-align: center;
     padding: 0;
     margin: 0;
 }
@@ -19,9 +18,11 @@ header{
     background-color: black;
     color: white;
     margin-bottom: 32px;
-    width: 100vw;
     display: flex;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 button{
@@ -55,7 +56,6 @@ button img{
     justify-content: center;
     align-items: center;
     gap: 20px;
-    width: 100vw;
 }
 
 .card{
@@ -141,7 +141,7 @@ button img{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 100px;
+    width: 90%;
 }
 
 .closeX{
@@ -200,6 +200,12 @@ button img{
 
 #stats{
     height: 230px;
+}
+
+.bottom{
+    display: flex;
+    justify-content: center;
+    padding: 10vh;
 }
 
 @media (max-width: 560px){
