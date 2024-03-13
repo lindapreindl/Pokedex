@@ -14,12 +14,12 @@
 </head>
 
 <body onload="init()">
-    <header><h1>Pokedex</h1></header>
+    <header><h1>Pokedex</h1> <input onkeydown="filterNames()" id="search" type="text" placeholder="Search Pokemon"></header>
 
     <div id="content"></div>
 
     <div id="openCard" class="d-none">
-        <div onclick="closeBigCard()" class="background">
+        <div class="background">
             <div onload="stopClose()" id="bigCard"></div>
         </div>
     </div>

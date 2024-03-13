@@ -1,13 +1,31 @@
 let start = 1;
 let end = 21;
+let pokemons = [];
 
-async function init() {
+
+function init(){
+    initRender();
+    initSearch();
+}
+
+async function initRender() {
     for (let i = start; i < end; i++) {
 
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
         let pokemon = await response.json();
         render(pokemon, i);
+    }
+
+}
+
+async function initSearch() {
+    for (let i = 1; i < 900; i++) {
+
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        let response = await fetch(url);
+        let pokemon = await response.json();
+        pokemons.push(pokemon);
     }
 
 }
@@ -163,3 +181,23 @@ function loadMore() {
     end = end + 20;
     init();
 }
+
+
+function filterNames(){
+    let search = document.getElementById('search').value;
+    search = search.toLowerCase();
+    console.log(search);
+
+    document.getElementById('content').innerHTML = '';
+
+    for (let index = 0; index < pokemons.length; index++) {
+        const name = pokemons[index]['name'];
+        if (name.toLowerCase().includes(search)) {
+            console.log(name);
+            render(pokemons[index], index)
+        }
+        
+    }
+}
+
+
