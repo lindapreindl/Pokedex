@@ -36,10 +36,10 @@ async function fillStats(i, statnames, statnumbers) {
     for (let j = 0; j < pokemon['stats'].length; j++) {
         statnames.push(pokemon['stats'][j]['stat']['name']);
     }
-    console.log(statnames);
+    
 
     for (let j = 0; j < pokemon['stats'].length; j++) {
         statnumbers.push(pokemon['stats'][j]['base_stat']);
     }
-    console.log(statnumbers);
+    
 }

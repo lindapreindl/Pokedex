@@ -1,8 +1,8 @@
 async function changeColorBig(i, pokemon) {
     let type = pokemon['types']['0']['type']['name'];
     let upperCard = document.getElementById(`upperCard${i}`);
+    let abilities = document.getElementById(`ability${i}`);
 
-    console.log(type);
     switch (type) {
         case 'grass':
             upperCard.style = 'background-color: #94D996';

@@ -22,7 +22,7 @@ async function initRender() {
 
 
 async function initSearch() {
-    for (let i = start; i < end; i++) {
+    for (let i = start; i < 100; i++) {
 
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -58,6 +58,7 @@ async function openPokemon(i) {
     let statnumbers = [];
     changeColorBig(i, pokemon);
     renderChart(i, statnames, statnumbers);
+    insertAbilities(pokemon, i);
 }
 
 
@@ -69,7 +70,7 @@ function insertOpenPokemonHTML(pokemon, i) {
                 <h2>${pokemon['name']}</h2>
                 <p>#00${pokemon['id']}</p>
                 <div class="changeCard">
-                    <p onclick="lastPokemon(${i})" class="arrow" id="arrow1"><</p>
+                    <p onclick="lastPokemon(${i})" class="arrow" id="arrow${i}"><</p>
                     <img src="${pokemon['sprites']['other']['dream_world']['front_default']}" alt="">
                     <p onclick="nextPokemon(${i})" class="arrow">></p>
                 </div>
@@ -83,7 +84,7 @@ function insertOpenPokemonHTML(pokemon, i) {
                 <div id="info">
                     <p><b>Type:</b> ${pokemon['types']['0']['type']['name']}</p>
                     <p><b>Base Experience:</b> ${pokemon['base_experience']}</p>
-                    <p><b>Abilities:</b> ${pokemon['abilities']['0']['ability']['name']}, ${pokemon['abilities']['1']['ability']['name']}</p>
+                    <p id="ability${i}" class="abilities"><b>Abilities: </b></p>
                     <p><b>Height:</b> ${pokemon['height']}</p>
                     <p><b>Weight:</b> ${pokemon['weight']}</p>
                 </div>
@@ -110,96 +111,118 @@ function insertTypes(pokemon, i) {
 }
 
 
-function closeBigCard() {
-    document.getElementById('openCard').classList.add('d-none');
+function insertAbilities(pokemon, i) {
+    let typecontent = document.getElementById(`ability${i}`);
+    let length = pokemon['abilities'].length;
+
+    for (let j = 0; j < length; j++) {
+        if (j < length) {
+            typecontent.innerHTML += /*html*/`
+            <p> ${pokemon['abilities'][j]['ability']['name']}, </p>
+        `;
+
+        } else {
+            typecontent.innerHTML += /*html*/`
+            <p> ${pokemon['abilities'][j]['ability']['name']}</p>
+        `;
+
+
+        }
+    }
 }
 
 
-function stopClose(event) {
-    event.stopPropagation();
-}
+    function closeBigCard() {
+        document.getElementById('openCard').classList.add('d-none');
+    }
 
 
-function lastPokemon(i) {
-    if (i == 1) {
-        alert('Dies ist das erste Pokemon. Davor gibt es keine weiteren Pokemons.');
-    } else {
-        i--;
+    function stopClose(event) {
+        event.stopPropagation();
+    }
+
+
+    function lastPokemon(i) {
+        if (i == 1) {
+            document.getElementById(`arrow${i}`).classList.add('d-none');
+            openPokemon(i);
+        } else {
+            i--;
+            openPokemon(i);
+        }
+    }
+
+
+    function nextPokemon(i) {
+        i++;
         openPokemon(i);
     }
-}
 
 
-function nextPokemon(i) {
-    i++;
-    openPokemon(i);
-}
-
-
-function openInfo() {
-    document.getElementById('menu1').classList.add('menu-open');
-    document.getElementById('menu2').classList.remove('menu-open');
-    document.getElementById('menu3').classList.remove('menu-open');
-    document.getElementById('info').classList.remove('d-none');
-    document.getElementById('stats').classList.add('d-none');
-    document.getElementById('moves').classList.add('d-none');
-}
-
-
-function openStats() {
-    document.getElementById('menu2').classList.add('menu-open');
-    document.getElementById('menu1').classList.remove('menu-open');
-    document.getElementById('menu3').classList.remove('menu-open');
-    document.getElementById('stats').classList.remove('d-none');
-    document.getElementById('info').classList.add('d-none');
-    document.getElementById('moves').classList.add('d-none');
-}
-
-
-function openMoves(i) {
-    document.getElementById('menu3').classList.add('menu-open');
-    document.getElementById('menu1').classList.remove('menu-open');
-    document.getElementById('menu2').classList.remove('menu-open');
-    document.getElementById('moves').classList.remove('d-none');
-    document.getElementById('stats').classList.add('d-none');
-    document.getElementById('info').classList.add('d-none');
-    loadMoves(i);
-}
-
-
-async function loadMoves(i) {
-    let moves = document.getElementById('moves');
-    let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-    let response = await fetch(url);
-    let pokemon = await response.json();
-
-    for (let j = 0; j < pokemon['moves'].length; j++) {
-        let move = pokemon['moves'][j]['move']['name'];
-        moves.innerHTML += move + ', ';
+    function openInfo() {
+        document.getElementById('menu1').classList.add('menu-open');
+        document.getElementById('menu2').classList.remove('menu-open');
+        document.getElementById('menu3').classList.remove('menu-open');
+        document.getElementById('info').classList.remove('d-none');
+        document.getElementById('stats').classList.add('d-none');
+        document.getElementById('moves').classList.add('d-none');
     }
-}
 
 
-function loadMore() {
-    start = start + 20;
-    end = end + 20;
-    init();
-}
+    function openStats() {
+        document.getElementById('menu2').classList.add('menu-open');
+        document.getElementById('menu1').classList.remove('menu-open');
+        document.getElementById('menu3').classList.remove('menu-open');
+        document.getElementById('stats').classList.remove('d-none');
+        document.getElementById('info').classList.add('d-none');
+        document.getElementById('moves').classList.add('d-none');
+    }
 
 
-function filterNames() {
-    let search = document.getElementById('search').value;
-    search = search.toLowerCase();
+    function openMoves(i) {
+        document.getElementById('menu3').classList.add('menu-open');
+        document.getElementById('menu1').classList.remove('menu-open');
+        document.getElementById('menu2').classList.remove('menu-open');
+        document.getElementById('moves').classList.remove('d-none');
+        document.getElementById('stats').classList.add('d-none');
+        document.getElementById('info').classList.add('d-none');
+        loadMoves(i);
+    }
 
-    document.getElementById('content').innerHTML = '';
 
-    for (let index = 0; index < pokemons.length; index++) {
-        const name = pokemons[index]['name'];
-        if (name.toLowerCase().includes(search)) {
-            render(pokemons[index], index)
+    async function loadMoves(i) {
+        let moves = document.getElementById('moves');
+        let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+        let response = await fetch(url);
+        let pokemon = await response.json();
+
+        for (let j = 0; j < pokemon['moves'].length; j++) {
+            let move = pokemon['moves'][j]['move']['name'];
+            moves.innerHTML += move + ', ';
         }
-
     }
-}
+
+
+    function loadMore() {
+        start = start + 20;
+        end = end + 20;
+        init();
+    }
+
+
+    function filterNames() {
+        let search = document.getElementById('search').value;
+        search = search.toLowerCase();
+
+        document.getElementById('content').innerHTML = '';
+
+        for (let index = 0; index < pokemons.length; index++) {
+            const name = pokemons[index]['name'];
+            if (name.toLowerCase().includes(search)) {
+                render(pokemons[index], index)
+            }
+
+        }
+    }
 
 

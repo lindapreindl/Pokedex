@@ -191,6 +191,21 @@ button img{
     font-size: 18px;
 }
 
+.abilities{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.abilities b{
+    padding: 0px 5px 0px 0px !important;
+}
+
+.abilities p{
+    padding: 0px 5px 0px 0px !important;
+}
+
 #moves{
     overflow-y: scroll;
     height: 210px;
